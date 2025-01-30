@@ -55,9 +55,9 @@ public class Pet {
     public void adopt() {
         if (!isAdopted) {
             isAdopted = true;
-            System.out.println("Congratulations on adopting your new fur baby, " + name + "!");
+            System.out.println(name + " has been adopted!");
         } else {
-            System.out.println(name + " has already found their furever home! Please choose an available pet for adoption!");
+            System.out.println(name + " is already adopted.");
         }
     }
 
