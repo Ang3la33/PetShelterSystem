@@ -1,4 +1,4 @@
-package com.petshelter;
+package com.petshelter.controller;
 
 public class PetShelterCLI {
 

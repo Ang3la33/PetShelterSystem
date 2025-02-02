@@ -1,4 +1,4 @@
-package com.petshelter;
+package com.petshelter.model;
 
 public class Pet {
 

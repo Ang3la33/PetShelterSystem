@@ -1,4 +1,4 @@
-package com.petshelter;
+package com.petshelter.model;
 
 import java.util.ArrayList;
 import java.util.List;
