@@ -8,7 +8,6 @@ public class Pet {
     private int age;
     private boolean isAdopted;
     private boolean isFostered;
-    private boolean isOnWaitlist;
 
     public Pet(String name, String species, String breed, int age) {
         this.name = name;
@@ -17,7 +16,6 @@ public class Pet {
         this.age = age;
         this.isAdopted = false;
         this.isFostered = false;
-        this.isOnWaitlist = false;
     }
 
     public String getName() {
@@ -60,20 +58,12 @@ public class Pet {
         return isFostered;
     }
 
-    public boolean isOnWaitlist() {
-        return isOnWaitlist;
-    }
-
     public void setAdopted(boolean adopted) {
         this.isAdopted = adopted;
     }
 
     public void setFostered(boolean fostered) {
         this.isFostered = fostered;
-    }
-
-    public void setOnWaitlist(boolean onWaitlist) {
-        this.isOnWaitlist = onWaitlist;
     }
 
     @Override

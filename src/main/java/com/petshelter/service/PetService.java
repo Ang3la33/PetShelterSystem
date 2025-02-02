@@ -26,7 +26,7 @@ public class PetService {
         }
     }
 
-    public void returnFromFoster(Pet pet) {
+    public void returnFosterPet(Pet pet) {
         if (pet.isFostered()) {
             pet.setFostered(false);
             System.out.println(pet.getName() + " has been returned from foster care.");
