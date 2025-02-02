@@ -1,39 +1,49 @@
 package com.petshelter.service;
 
-import java.util.List;
 import com.petshelter.model.Adopter;
 import com.petshelter.model.Pet;
 
 public class AdopterService {
 
-    public void adoptPet(Adopter adopter, Pet pet) {
+    private final PetService petservice;
+
+    public AdopterService(PetService petService) {
+        this.petservice = petService;
+    }
+
+    public boolean adoptPet(Adopter adopter, Pet pet) {
         if (!pet.isAdopted() && !pet.isFostered()) {
-            pet.setAdopted(true);
+            petservice.markAsAdopted(pet);
             adopter.getAdoptedPets().add(pet);
             System.out.println(adopter.getName() + " has adopted " + pet.getName() + ".");
+            return true;
         } else {
             System.out.println("Sorry, " + pet.getName() + " is not available for adoption.");
+            return false;
         }
     }
 
-    public void fosterPet(Adopter adopter, Pet pet) {
+    public boolean fosterPet(Adopter adopter, Pet pet) {
         if (!pet.isAdopted() && !pet.isFostered()) {
-            pet.setFostered(true);
+            petservice.markAsFostered(pet);
             adopter.getFosteredPets().add(pet);
             System.out.println(adopter.getName() + " is fostering " + pet.getName() + ".");
+            return true;
         } else {
             System.out.println("Sorry, " + pet.getName() + " is not available for fostering.");
+            return false;
         }
     }
 
-    public void returnFosterPet(Adopter adopter, Pet pet) {
-        List<Pet> fosteredPets = adopter.getFosteredPets();
-        if (fosteredPets.contains(pet)) {
-            pet.setFostered(false);
-            fosteredPets.remove(pet);
-            System.out.println(adopter.getName() + " has returned " + pet.getName() + ".");
+    public boolean returnFosteredPet(Adopter adopter, Pet pet) {
+        if (adopter.getFosteredPets().contains(pet)) {
+            petservice.returnFromFoster(pet);
+            adopter.getFosteredPets().remove(pet);
+            System.out.println(adopter.getName() + " has returned " + pet.getName() + " to the shelter.");
+            return true;
         } else {
             System.out.println(adopter.getName() + " is not currently fostering " + pet.getName() + ".");
+            return false;
         }
     }
 

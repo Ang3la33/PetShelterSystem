@@ -51,12 +51,10 @@ public class Adopter {
         return fosteredPets;
     }
 
-//    public void adoptPet(Pet pet) {
-//        if (!pet.isAdopted()) {
-//            pet.adopt();
-//            adoptedPets.add(pet);
-//            System.out.println(name + " has adopted");
-//        }
-//    }
+    @Override
+    public String toString() {
+        return "Adopter: " + name + ", Address: " + address + ", Phone: " + phoneNumber +
+                ", Adopted Pets: " + adoptedPets.size() + ", Fostered Pets: " + fosteredPets.size();
+    }
 
 }
