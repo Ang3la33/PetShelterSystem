@@ -68,7 +68,6 @@ public class Pet {
 
     @Override
     public String toString() {
-        return name + " ( " + species + ", " + breed + ", " + age + " )" + (isAdopted ? "[Adopted]" : isFostered ? "[Fostered]" : "[Available]") +
-                (isOnWaitlist ? " - Waitlisted" : "");
+        return name + " ( " + species + ", " + breed + ", " + age + " )" + (isAdopted ? "[Adopted]" : isFostered ? "[Fostered]" : "[Available]");
     }
 }
