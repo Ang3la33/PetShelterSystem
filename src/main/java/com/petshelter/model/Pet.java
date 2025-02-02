@@ -64,42 +64,17 @@ public class Pet {
         return isOnWaitlist;
     }
 
-    public void adopt() {
-        if (!isAdopted() && !isFostered) {
-            isAdopted = true;
-            System.out.println(name + " has been adopted!");
-        } else if (isFostered){
-            System.out.println(name + " is currently in foster care and cannot be adopted.");
-        } else {
-            System.out.println(name + " is already adopted.");
-        }
+    public void setAdopted(boolean adopted) {
+        this.isAdopted = adopted;
     }
 
-    public void foster() {
-        if (!isAdopted() && !isFostered) {
-            isFostered = true;
-            System.out.println(name + " is now in foster care.");
-        } else if (isAdopted) {
-            System.out.println(name + " has already been adopted and cannot be fostered.");
-        } else {
-            System.out.println(name + " is already in foster care.");
-        }
+    public void setFostered(boolean fostered) {
+        this.isFostered = fostered;
     }
 
-    public void returnFromFoster() {
-        if (isFostered) {
-            isFostered = false;
-            System.out.println(name + " has been returned from foster care.");
-        } else {
-            System.out.println(name + " is not currently in foster care.");
-        }
+    public void setOnWaitlist(boolean onWaitlist) {
+        this.isOnWaitlist = onWaitlist;
     }
-
-    public void setOnWaitlist(boolean status) {
-        this.isOnWaitlist = status;
-    }
-
-
 
     @Override
     public String toString() {
