@@ -134,4 +134,17 @@ public class PetShelterConsoleService {
         System.out.println(pet.getName() + " the " + species + " has been added to " + petShelter.getName() + "!" );
     }
 
+    public void listAvailablePets() {
+        if (petShelter.getAvailablePets().isEmpty()) {
+            System.out.println("No pets are available at this time.");
+        } else {
+            System.out.println("Available pets at " + petShelter.getName() + ":");
+            System.out.println();
+            for (Pet pet : petShelter.getAvailablePets()) {
+                System.out.println(pet.getName() + " | " + pet.getSpecies() + " | " + pet.getBreed() + " | Age: " + pet.getAge());
+            }
+            System.out.println();
+        }
+    }
+
 }
