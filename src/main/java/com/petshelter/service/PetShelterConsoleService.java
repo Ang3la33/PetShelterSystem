@@ -94,7 +94,11 @@ public class PetShelterConsoleService {
             } else {
                 input = scanner.nextInt();
                 scanner.nextLine();
-                return input;
+                if (input >= 0 && input < 20) {
+                    return input;
+                } else {
+                    System.out.println("Invalid Input : Age must be 0 or greater and less than 20.");
+                }
             }
             System.out.println("Enter pet's age: ");
         }
