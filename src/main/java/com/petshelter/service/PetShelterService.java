@@ -16,6 +16,11 @@ public class PetShelterService {
         this.adopterService = adopterService;
     }
 
+    public void addPet(Pet pet) {
+        petShelter.addPet(pet);
+        System.out.println(pet.getName() + " has been added to " + petShelter.getName() + ".");
+    }
+
     public void listAvailablePets() {
         if (petShelter.getAvailablePets().isEmpty()) {
             System.out.println("No pets available for adoption or fostering.");
@@ -54,6 +59,5 @@ public class PetShelterService {
             System.out.println(pet.getName() + " is not in foster care.");
         }
     }
-
 
 }
