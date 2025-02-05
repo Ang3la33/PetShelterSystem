@@ -1,7 +1,6 @@
 package com.petshelter.service;
 
 import com.petshelter.model.Pet;
-import com.petshelter.model.Adopter;
 import com.petshelter.model.PetShelter;
 
 import java.util.Scanner;
@@ -31,7 +30,7 @@ public class PetShelterConsoleService {
             System.out.println("6. Exit");
             System.out.println("Please select an option: ");
 
-            int choice = getValidIntInput();
+            int choice = getValidMenuInput();
 
             switch (choice) {
                 case 1:
@@ -59,7 +58,7 @@ public class PetShelterConsoleService {
         }
     }
 
-    private int getValidIntInput() {
+    private int getValidMenuInput() {
         int input;
         while (true) {
             if (!scanner.hasNextInt()) {
@@ -77,6 +76,58 @@ public class PetShelterConsoleService {
             }
             System.out.println("Select an option: ");
         }
+    }
+
+    private Pet findPetByNameAndSpecies(String name, String species) {
+        return petShelter.getAvailablePets().stream()
+                .filter(pet -> pet.getName().equalsIgnoreCase(name) && pet.getSpecies().equalsIgnoreCase(species))
+                .findFirst()
+                .orElse(null);
+    }
+
+    private int getValidIntInput() {
+        int input;
+        while(true) {
+            if(!scanner.hasNextInt()) {
+                System.out.println("Invalid input: Please enter a valid number");
+                scanner.next();
+            } else {
+                input = scanner.nextInt();
+                scanner.nextLine();
+                return input;
+            }
+            System.out.println("Enter pet's age: ");
+        }
+    }
+
+    private void addPet() {
+        System.out.println("Enter pet's name: ");
+        String name = scanner.nextLine().trim().toUpperCase();
+
+        String species;
+        while (true) {
+            System.out.println("Enter the pet's species: ");
+            species = scanner.nextLine().trim().toUpperCase();
+            if (species.equals("CAT") || species.equals("DOG")) {
+                break;
+            }
+            System.out.println("Sorry, this shelter can only take a cat or a dog.");
+        }
+
+        if (findPetByNameAndSpecies(name, species) != null) {
+            System.out.println("A " + species.toLowerCase() + " with this name is already at the shelter");
+            System.out.println("Please add a last name and try again.");
+            return;
+        }
+
+        System.out.println("Enter breed: ");
+        String breed = scanner.nextLine().trim().toUpperCase();
+        System.out.println("Enter age: ");
+        int age = getValidIntInput();
+
+        Pet pet = new Pet(name, species, breed, age);
+        petShelterService.addPet(pet);
+        System.out.println(pet.getName() + " the " + species + " has been added to " + petShelter.getName() + "!" );
     }
 
 }
