@@ -286,6 +286,28 @@ public class PetShelterConsoleService {
         System.out.println(fostersName + ", you are now the proud foster parent of " + petToFoster + "!");
     }
 
+    private void returnFosterPet() {
+        System.out.println("You have selected to return a fostered pet.");
+        System.out.println();
+        System.out.println("Enter your name:");
+        String fosterParentsName = scanner.nextLine().trim().toUpperCase();
 
+        System.out.println("Enter the name of the pet you are returning: ");
+        String petsName = scanner.nextLine().trim().toUpperCase();
+
+        System.out.println("Enter the pet's species (CAT or DOG): ");
+        String petsSpecies = getValidSpecies();
+
+        Pet fosterPetToReturn = findAvailablePetByNameAndSpecies(petsName,petsSpecies);
+
+        if (fosterPetToReturn == null || !fosterPetToReturn.isFostered()) {
+            System.out.println(petsName + " is not currently in foster care.");
+            return;
+        }
+
+        Adopter fosterParent = new Adopter(fosterParentsName, "", "");
+        petShelterService.returnFosteredPet(fosterParent,fosterPetToReturn);
+        System.out.println(fosterPetToReturn.getName() + " has been returned to " + petShelter.getName() + " from foster care.");
+    }
 
 }
