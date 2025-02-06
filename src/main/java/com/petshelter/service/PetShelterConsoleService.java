@@ -1,5 +1,6 @@
 package com.petshelter.service;
 
+import com.petshelter.model.Adopter;
 import com.petshelter.model.Pet;
 import com.petshelter.model.PetShelter;
 
@@ -105,6 +106,8 @@ public class PetShelterConsoleService {
     }
 
     private void addPet() {
+        System.out.println("You have selected to add a pet.");
+        System.out.println();
         System.out.println("Enter pet's name: ");
         String name = scanner.nextLine().trim().toUpperCase();
 
@@ -132,6 +135,7 @@ public class PetShelterConsoleService {
         Pet pet = new Pet(name, species, breed, age);
         petShelterService.addPet(pet);
         System.out.println(pet.getName() + " the " + species + " has been added to " + petShelter.getName() + "!" );
+        System.out.println();
     }
 
     public void listAvailablePets() {
@@ -144,6 +148,79 @@ public class PetShelterConsoleService {
                 System.out.println(pet.getName() + " | " + pet.getSpecies() + " | " + pet.getBreed() + " | Age: " + pet.getAge());
             }
             System.out.println();
+        }
+    }
+
+    public void adoptPet() {
+        System.out.println("You have selected to adopt a pet!");
+        System.out.println();
+        if (petShelter.getAvailablePets().isEmpty()) {
+            System.out.println("No pets are available at this time.");
+            return;
+        }
+        String petsNameKnown = getValidYesOrNo("Do you know the name of the pet you want to adopt?");
+        String petsName = "";
+        String petsSpecies = "";
+
+        if (petsNameKnown.equals("YES")) {
+            System.out.println("Enter the name of the pet you want to adopt: ");
+            petsName = scanner.nextLine().trim().toUpperCase();
+            petsSpecies = getValidSpecies();
+        } else {
+            petsSpecies = getValidSpecies();
+            listPetsBySpecies(petsSpecies);
+            System.out.println("Enter the name of the pet you want to adopt: ");
+            petsName = scanner.nextLine().trim().toUpperCase();
+        }
+
+        Pet petToAdopt = findAvailablePetByNameAndSpecies(petsName, petsSpecies);
+
+        if (petToAdopt == null) {
+            System.out.println("No available " + petsSpecies.toLowerCase() + "s  found with the name " + petsName + ".");
+            return;
+        }
+
+        System.out.println("Enter your name: ");
+        String adoptersName = scanner.nextLine().trim().toUpperCase();
+
+        System.out.println("Enter your address: ");
+        String adoptersAddress = scanner.nextLine().trim();
+
+        System.out.println("Enter your phone number: ");
+        String adoptersPhoneNumber = scanner.nextLine().trim();
+
+        Adopter adopter = new Adopter(adoptersName,adoptersAddress,adoptersPhoneNumber);
+
+        petShelterService.adoptPet(adopter,petToAdopt);
+        System.out.println("Congratulations, " + adoptersName + ", on adopting your new fur baby!");
+    }
+
+    private Pet findAvailablePetByNameAndSpecies(String name, String species) {
+        return petShelter.getAvailablePets().stream()
+                .filter(pet -> pet.getName().equalsIgnoreCase(name) && pet.getSpecies().equalsIgnoreCase(species) && !pet.isAdopted() && !pet.isFostered())
+                .findFirst()
+                .orElse(null);
+    }
+
+    private String getValidYesOrNo(String prompt) {
+        while (true) {
+            System.out.println(prompt + " (yes/no): ");
+            String response = scanner.nextLine().trim().toUpperCase();
+            if (response.equals("YES") || response.equals("NO")) {
+                return response;
+            }
+            System.out.println("Invalid input: Please enter YES or NO");
+        }
+    }
+
+    private String getValidSpecies() {
+        while (true) {
+            System.out.println("Are you looking for a CAT or a DOG?");
+            String species = scanner.nextLine().trim().toUpperCase();
+            if (species.equals("CAT") || species.equals("DOG")) {
+                return species;
+            }
+            System.out.println("Invalid input: Please enter CAT or DOG");
         }
     }
 
