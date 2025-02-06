@@ -241,4 +241,51 @@ public class PetShelterConsoleService {
         System.out.println();
     }
 
+    private void fosterPet() {
+        System.out.println("You have selected to foster a pet!");
+
+        if (petShelter.getAvailablePets().isEmpty()) {
+            System.out.println("No pets are currently available for fostering.");
+            return;
+        }
+
+        String knowsPetsName = getValidYesOrNo("Do you know the name of the pet you want to foster?");
+        String petsName = "";
+        String petsSpecies = "";
+
+        if (knowsPetsName.equals("YES")) {
+            System.out.println("Enter the name of the pet you want to foster: ");
+            petsName = scanner.nextLine().trim().toUpperCase();
+            petsSpecies = getValidSpecies();
+        } else {
+            petsSpecies = getValidSpecies();
+            listPetsBySpecies(petsSpecies);
+            System.out.println("Enter the name of the pet you want to foster: ");
+            petsName = scanner.nextLine().trim().toUpperCase();
+        }
+
+        Pet petToFoster = findAvailablePetByNameAndSpecies(petsName,petsSpecies);
+
+        if (petToFoster == null) {
+            System.out.println("No available " + petsSpecies.toLowerCase() + "s found with the name " + petsName + ".");
+            return;
+        }
+
+        System.out.println("Enter your name: ");
+        String fostersName = scanner.nextLine().trim().toUpperCase();
+
+        System.out.println("Enter your address: ");
+        String fostersAddress = scanner.nextLine().trim();
+
+        System.out.println("Enter your phone number: ");
+        String fostersPhoneNumber = scanner.nextLine().trim();
+
+        Adopter fosterParent = new Adopter(fostersName,fostersAddress,fostersPhoneNumber);
+
+        petShelterService.fosterPet(fosterParent,petToFoster);
+        System.out.println(fostersName + ", you are now the proud foster parent of " + petToFoster + "!");
+    }
+
+
+
 }
