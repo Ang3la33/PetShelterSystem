@@ -165,9 +165,9 @@ public class PetShelterConsoleService {
         if (petsNameKnown.equals("YES")) {
             System.out.println("Enter the name of the pet you want to adopt: ");
             petsName = scanner.nextLine().trim().toUpperCase();
-            petsSpecies = getValidSpecies();
+            petsSpecies = getValidSpecies(true);
         } else {
-            petsSpecies = getValidSpecies();
+            petsSpecies = getValidSpecies(true);
             listPetsBySpecies(petsSpecies);
             System.out.println("Enter the name of the pet you want to adopt: ");
             petsName = scanner.nextLine().trim().toUpperCase();
@@ -213,9 +213,14 @@ public class PetShelterConsoleService {
         }
     }
 
-    private String getValidSpecies() {
+    private String getValidSpecies(boolean askPreferance) {
         while (true) {
-            System.out.println("Are you looking for a CAT or a DOG?");
+            if (askPreferance) {
+                System.out.println("Are you looking for a CAT or a DOG?");
+            } else {
+                System.out.println("Enter the pet's species (CAT or DOG):");
+            }
+
             String petsSpecies = scanner.nextLine().trim().toUpperCase();
             if (petsSpecies.equals("CAT") || petsSpecies.equals("DOG")) {
                 return petsSpecies;
@@ -256,9 +261,9 @@ public class PetShelterConsoleService {
         if (knowsPetsName.equals("YES")) {
             System.out.println("Enter the name of the pet you want to foster: ");
             petsName = scanner.nextLine().trim().toUpperCase();
-            petsSpecies = getValidSpecies();
+            petsSpecies = getValidSpecies(true);
         } else {
-            petsSpecies = getValidSpecies();
+            petsSpecies = getValidSpecies(true);
             listPetsBySpecies(petsSpecies);
             System.out.println("Enter the name of the pet you want to foster: ");
             petsName = scanner.nextLine().trim().toUpperCase();
@@ -296,7 +301,7 @@ public class PetShelterConsoleService {
         String petsName = scanner.nextLine().trim().toUpperCase();
 
         System.out.println("Enter the pet's species (CAT or DOG): ");
-        String petsSpecies = getValidSpecies();
+        String petsSpecies = getValidSpecies(false);
 
         Pet fosterPetToReturn = findAvailablePetByNameAndSpecies(petsName,petsSpecies);
 
