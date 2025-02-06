@@ -195,9 +195,9 @@ public class PetShelterConsoleService {
         System.out.println("Congratulations, " + adoptersName + ", on adopting your new fur baby!");
     }
 
-    private Pet findAvailablePetByNameAndSpecies(String name, String species) {
+    private Pet findAvailablePetByNameAndSpecies(String petsName, String petsSpecies) {
         return petShelter.getAvailablePets().stream()
-                .filter(pet -> pet.getName().equalsIgnoreCase(name) && pet.getSpecies().equalsIgnoreCase(species) && !pet.isAdopted() && !pet.isFostered())
+                .filter(pet -> pet.getName().equalsIgnoreCase(petsName) && pet.getSpecies().equalsIgnoreCase(petsSpecies) && !pet.isAdopted() && !pet.isFostered())
                 .findFirst()
                 .orElse(null);
     }
@@ -216,12 +216,29 @@ public class PetShelterConsoleService {
     private String getValidSpecies() {
         while (true) {
             System.out.println("Are you looking for a CAT or a DOG?");
-            String species = scanner.nextLine().trim().toUpperCase();
-            if (species.equals("CAT") || species.equals("DOG")) {
-                return species;
+            String petsSpecies = scanner.nextLine().trim().toUpperCase();
+            if (petsSpecies.equals("CAT") || petsSpecies.equals("DOG")) {
+                return petsSpecies;
             }
             System.out.println("Invalid input: Please enter CAT or DOG");
         }
+    }
+
+    private void listPetsBySpecies(String petsSpecies) {
+        System.out.println("Available " + petsSpecies + "s for Adoption: ");
+        System.out.println();
+
+        boolean isPetFound = false;
+        for (Pet pet : petShelter.getAvailablePets()) {
+            if (pet.getSpecies().equalsIgnoreCase(petsSpecies) && !pet.isAdopted() && !pet.isFostered()) {
+                System.out.println(pet.getName() + " | " + pet.getBreed() + " | Age " + pet.getAge());
+                isPetFound = true;
+            }
+        }
+        if (!isPetFound) {
+            System.out.println("No " + petsSpecies.toLowerCase() + "s are currently available for adoption.");
+        }
+        System.out.println();
     }
 
 }
