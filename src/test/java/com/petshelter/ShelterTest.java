@@ -37,7 +37,7 @@ public class ShelterTest {
 
         pet1 = new Pet("Snickers", "Cat", "Ragdoll", 2);
         pet2 = new Pet("Waldo","Dog","Boston Terrier",5);
-        adopter = new Adopter("Lady Gaga","123 Main Street","800-867-5309");
+        adopter = new Adopter("Lady Gaga","800-867-5309");
     }
 
     @Test

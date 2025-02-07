@@ -6,14 +6,12 @@ import java.util.List;
 public class Adopter {
 
     private String name;
-    private String address;
     private String phoneNumber;
     private List<Pet> adoptedPets;
     private List<Pet> fosteredPets;
 
-    public Adopter(String name, String address, String phoneNumber) {
+    public Adopter(String name, String phoneNumber) {
         this.name = name;
-        this.address = address;
         this.phoneNumber = phoneNumber;
         this.adoptedPets = new ArrayList<>();
         this.fosteredPets = new ArrayList<>();
@@ -21,18 +19,6 @@ public class Adopter {
 
     public String getName() {
         return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return this.address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getPhoneNumber() {
@@ -49,12 +35,6 @@ public class Adopter {
 
     public List<Pet> getFosteredPets() {
         return fosteredPets;
-    }
-
-    @Override
-    public String toString() {
-        return "Adopter: " + name + ", Address: " + address + ", Phone: " + phoneNumber +
-                ", Adopted Pets: " + adoptedPets.size() + ", Fostered Pets: " + fosteredPets.size();
     }
 
 }
