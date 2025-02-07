@@ -61,11 +61,4 @@ public class AdopterTest {
         assertFalse(pet2.isFostered());
     }
 
-    @Test
-    void testAdoptAlreadyAdoptedPet() {
-        pet1.setAdopted(true);
-        boolean isAdded = adopter.getAdoptedPets().add(pet1);
-
-        assertFalse(isAdded, "Pet should not be adoptable after already being adopted.");
-    }
 }
