@@ -37,6 +37,7 @@ public class PetShelterService {
     public void adoptPet(Adopter adopter, Pet pet) {
         if (petShelter.getAvailablePets().contains(pet) && !pet.isAdopted() && !pet.isFostered()) {
             adopterService.adoptPet(adopter, pet);
+            petService.adoptPet(pet);
             petShelter.removePet(pet);
         } else {
             System.out.println(pet.getName() + " is not available for adoption.");
@@ -46,7 +47,7 @@ public class PetShelterService {
     public void fosterPet(Adopter adopter, Pet pet) {
         if (petShelter.getAvailablePets().contains(pet) && !pet.isAdopted() && !pet.isFostered()) {
             adopterService.fosterPet(adopter, pet);
-            pet.foster();
+            petService.fosterPet(pet);
             petShelter.removePet(pet);
             System.out.println(adopter.getName() + " is now fostering " + pet.getName() + "!");
         } else {
@@ -57,7 +58,7 @@ public class PetShelterService {
     public void returnFosteredPet(Adopter adopter, Pet pet) {
         if (adopter.getFosteredPets().contains(pet)) {
             adopterService.returnFosteredPet(adopter, pet);
-
+            petService.returnFosteredPet(pet);
             petShelter.addPet(pet);
             System.out.println(pet.getName() + " has been returned to " + petShelter.getName() + ".");
         } else {
