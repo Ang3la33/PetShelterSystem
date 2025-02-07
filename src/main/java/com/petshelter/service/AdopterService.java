@@ -37,7 +37,7 @@ public class AdopterService {
 
     public boolean returnFosteredPet(Adopter adopter, Pet pet) {
         if (adopter.getFosteredPets().contains(pet)) {
-            petservice.returnFromFoster(pet);
+            petservice.returnFromFostering(pet);
             adopter.getFosteredPets().remove(pet);
             System.out.println(adopter.getName() + " has returned " + pet.getName() + " to the shelter.");
             return true;

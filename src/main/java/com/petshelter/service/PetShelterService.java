@@ -34,36 +34,49 @@ public class PetShelterService {
         }
     }
 
-    public void adoptPet(Adopter adopter, Pet pet) {
+    public boolean adoptPet(Adopter adopter, Pet pet) {
         if (petShelter.getAvailablePets().contains(pet) && !pet.isAdopted() && !pet.isFostered()) {
-            adopterService.adoptPet(adopter, pet);
-            petService.adoptPet(pet);
-            petShelter.removePet(pet);
+            boolean adoptionSuccessful = adopterService.adoptPet(adopter,pet);
+            if (adoptionSuccessful) {
+                petService.markAsAdopted(pet);
+                petShelter.removePet(pet);
+                System.out.println(adopter.getName() + " has adopted " + pet.getName() + "!");
+                return true;
+            }
         } else {
             System.out.println(pet.getName() + " is not available for adoption.");
         }
+        return false;
     }
 
-    public void fosterPet(Adopter adopter, Pet pet) {
+    public boolean fosterPet(Adopter adopter, Pet pet) {
         if (petShelter.getAvailablePets().contains(pet) && !pet.isAdopted() && !pet.isFostered()) {
-            adopterService.fosterPet(adopter, pet);
-            petService.fosterPet(pet);
-            petShelter.removePet(pet);
-            System.out.println(adopter.getName() + " is now fostering " + pet.getName() + "!");
+            boolean fosteringSuccessful = adopterService.fosterPet(adopter,pet);
+            if (fosteringSuccessful) {
+                petService.markAsFostered(pet);
+                petShelter.removePet(pet);
+                System.out.println(adopter.getName() + " is now fostering " + pet.getName() + "!");
+                return true;
+            }
         } else {
             System.out.println(pet.getName() + " is not available for fostering.");
         }
+        return false;
     }
 
-    public void returnFosteredPet(Adopter adopter, Pet pet) {
+    public boolean returnFosteredPet(Adopter adopter, Pet pet) {
         if (adopter.getFosteredPets().contains(pet)) {
-            adopterService.returnFosteredPet(adopter, pet);
-            petService.returnFosteredPet(pet);
-            petShelter.addPet(pet);
-            System.out.println(pet.getName() + " has been returned to " + petShelter.getName() + ".");
+            boolean returnFosterSuccessful = adopterService.returnFosteredPet(adopter,pet);
+            if (returnFosterSuccessful) {
+                petService.returnFromFostering(pet);
+                petShelter.addPet(pet);
+                System.out.println(pet.getName() + " has been returned from foster care.");
+                return true;
+            }
         } else {
             System.out.println(pet.getName() + " is not in foster care.");
         }
+        return false;
     }
 
 }
