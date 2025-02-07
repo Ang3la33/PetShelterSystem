@@ -4,7 +4,7 @@ import com.petshelter.model.Pet;
 
 public class PetService {
 
-    public void adoptPet(Pet pet) {
+    public void markAsAdopted(Pet pet) {
         if (!pet.isAdopted() && !pet.isFostered()) {
             pet.setAdopted(true);
             System.out.println(pet.getName() + " has been adopted!");
@@ -13,7 +13,7 @@ public class PetService {
         }
     }
 
-    public void fosterPet(Pet pet) {
+    public void markAsFostered(Pet pet) {
         if (!pet.isAdopted() && !pet.isFostered()) {
             pet.setFostered(true);
             System.out.println(pet.getName() + " is now in foster care!");
@@ -22,7 +22,7 @@ public class PetService {
         }
     }
 
-    public void returnFosteredPet(Pet pet) {
+    public void returnFromFostering(Pet pet) {
         if (pet.isFostered()) {
             pet.setFostered(false);
             System.out.println(pet.getName() + " has been returned from foster care.");
@@ -30,5 +30,7 @@ public class PetService {
             System.out.println(pet.getName() + " is not currently in foster care.");
         }
     }
+
+
 
 }
