@@ -12,7 +12,10 @@ public class PetShelterCLI {
 
         PetShelter petShelter = new PetShelter("Angie's Angels");
         PetService petService = new PetService();
-        AdopterService adopterService = new AdopterService();
+        AdopterService adopterService = new AdopterService(petService);
+        PetShelterService petShelterService = new PetShelterService(petShelter,petService,adopterService);
 
+        PetShelterConsoleService consoleService = new PetShelterConsoleService(petShelter,petShelterService);
+        consoleService.displayMenu();
     }
 }
