@@ -15,10 +15,8 @@ public class AdopterService {
         if (!pet.isAdopted() && !pet.isFostered()) {
             petservice.markAsAdopted(pet);
             adopter.getAdoptedPets().add(pet);
-            System.out.println(adopter.getName() + " has adopted " + pet.getName() + ".");
             return true;
         } else {
-            System.out.println("Sorry, " + pet.getName() + " is not available for adoption.");
             return false;
         }
     }
@@ -26,11 +24,11 @@ public class AdopterService {
     public boolean fosterPet(Adopter adopter, Pet pet) {
         if (!pet.isAdopted() && !pet.isFostered()) {
             petservice.markAsFostered(pet);
-            adopter.getFosteredPets().add(pet);
-            System.out.println(adopter.getName() + " is fostering " + pet.getName() + ".");
+            if (!adopter.getFosteredPets().contains(pet)) {
+                adopter.getFosteredPets().add(pet);
+            }
             return true;
         } else {
-            System.out.println("Sorry, " + pet.getName() + " is not available for fostering.");
             return false;
         }
     }
@@ -39,10 +37,8 @@ public class AdopterService {
         if (adopter.getFosteredPets().contains(pet)) {
             petservice.returnFromFostering(pet);
             adopter.getFosteredPets().remove(pet);
-            System.out.println(adopter.getName() + " has returned " + pet.getName() + " to the shelter.");
             return true;
         } else {
-            System.out.println(adopter.getName() + " is not currently fostering " + pet.getName() + ".");
             return false;
         }
     }

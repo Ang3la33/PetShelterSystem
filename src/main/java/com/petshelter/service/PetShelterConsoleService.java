@@ -22,7 +22,7 @@ public class PetShelterConsoleService {
         while (true) {
             System.out.println();
             System.out.println("Welcome to " + petShelter.getName() + "!");
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.println("1. Add a Pet");
             System.out.println("2. List Available Pets");
             System.out.println("3. Adopt a Pet");
@@ -202,6 +202,14 @@ public class PetShelterConsoleService {
                 .orElse(null);
     }
 
+    private Pet findFosteredPetByNameAndSpecies(Adopter adopter,String petsName,String petsSpecies) {
+        return adopter.getFosteredPets().stream()
+                .filter(pet -> pet.getName().equalsIgnoreCase(petsName) &&
+                        pet.getSpecies().equalsIgnoreCase(petsSpecies))
+                .findFirst()
+                .orElse(null);
+    }
+
     private String getValidYesOrNo(String prompt) {
         while (true) {
             System.out.println(prompt + " (yes/no): ");
@@ -300,19 +308,28 @@ public class PetShelterConsoleService {
         System.out.println("Enter the name of the pet you are returning: ");
         String petsName = scanner.nextLine().trim().toUpperCase();
 
-        System.out.println("Enter the pet's species (CAT or DOG): ");
         String petsSpecies = getValidSpecies(false);
 
-        Pet fosterPetToReturn = findAvailablePetByNameAndSpecies(petsName,petsSpecies);
+        Adopter fosterParent = findAdopterByName(fosterParentsName);
+        if (fosterParent == null) {
+            System.out.println("No adopter found with the name " + fosterParentsName + ".");
+        }
+        Pet fosterPetToReturn = findFosteredPetByNameAndSpecies(fosterParent,petsName,petsSpecies);
 
         if (fosterPetToReturn == null || !fosterPetToReturn.isFostered()) {
             System.out.println(petsName + " is not currently in foster care.");
             return;
         }
 
-        Adopter fosterParent = new Adopter(fosterParentsName, "", "");
         petShelterService.returnFosteredPet(fosterParent,fosterPetToReturn);
         System.out.println(fosterPetToReturn.getName() + " has been returned to " + petShelter.getName() + " from foster care.");
+    }
+
+    private Adopter findAdopterByName(String adopterName) {
+        return petShelter.getAdopters().stream()
+                .filter(adopter -> adopter.getName().equalsIgnoreCase(adopterName))
+                .findFirst()
+                .orElse(null);
     }
 
 }

@@ -7,10 +7,12 @@ public class PetShelter {
 
     private String name;
     private List<Pet> availablePets;
+    private List<Adopter> adopters;
 
     public PetShelter(String name) {
         this.name = name;
         this.availablePets = new ArrayList<>();
+        this.adopters = new ArrayList<>();
     }
 
     public String getName() {
@@ -21,6 +23,10 @@ public class PetShelter {
         return availablePets;
     }
 
+    public List<Adopter> getAdopters() {
+        return new ArrayList<>(adopters);
+    }
+
     public void addPet(Pet pet) {
         availablePets.add(pet);
     }
@@ -29,9 +35,10 @@ public class PetShelter {
         availablePets.remove(pet);
     }
 
-    @Override
-    public String toString() {
-        return "Shelter: " + name + " | Available Pets: " + availablePets.size();
+    public void addAdopter(Adopter adopter) {
+        if (!adopters.contains(adopter)) {
+            adopters.add(adopter);
+        }
     }
 
 }

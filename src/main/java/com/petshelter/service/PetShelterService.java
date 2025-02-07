@@ -18,7 +18,6 @@ public class PetShelterService {
 
     public void addPet(Pet pet) {
         petShelter.addPet(pet);
-        System.out.println(pet.getName() + " has been added to " + petShelter.getName() + ".");
     }
 
     public void listAvailablePets() {
@@ -40,11 +39,9 @@ public class PetShelterService {
             if (adoptionSuccessful) {
                 petService.markAsAdopted(pet);
                 petShelter.removePet(pet);
-                System.out.println(adopter.getName() + " has adopted " + pet.getName() + "!");
+                petShelter.addAdopter(adopter);
                 return true;
             }
-        } else {
-            System.out.println(pet.getName() + " is not available for adoption.");
         }
         return false;
     }
@@ -55,11 +52,9 @@ public class PetShelterService {
             if (fosteringSuccessful) {
                 petService.markAsFostered(pet);
                 petShelter.removePet(pet);
-                System.out.println(adopter.getName() + " is now fostering " + pet.getName() + "!");
+                petShelter.addAdopter(adopter);
                 return true;
             }
-        } else {
-            System.out.println(pet.getName() + " is not available for fostering.");
         }
         return false;
     }
@@ -70,11 +65,8 @@ public class PetShelterService {
             if (returnFosterSuccessful) {
                 petService.returnFromFostering(pet);
                 petShelter.addPet(pet);
-                System.out.println(pet.getName() + " has been returned from foster care.");
                 return true;
             }
-        } else {
-            System.out.println(pet.getName() + " is not in foster care.");
         }
         return false;
     }
