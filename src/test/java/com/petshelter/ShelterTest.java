@@ -72,4 +72,10 @@ public class ShelterTest {
         verify(adopterService, times(1)).returnFosteredPet(adopter,pet2);
     }
 
+    @Test
+    void testReturnPetNotFostered() {
+        boolean result = petShelterService.returnFosteredPet(adopter,pet1);
+        assertFalse(result,"Should not be able to return a pet that was not fostered.");
+    }
+
 }

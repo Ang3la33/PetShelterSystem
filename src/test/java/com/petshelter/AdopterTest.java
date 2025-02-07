@@ -16,7 +16,7 @@ public class AdopterTest {
 
     @BeforeEach
     void setUp() {
-        adopter = new Adopter("Angie Smith","123 Main Street","709-867-5309");
+        adopter = new Adopter("Angie Smith","709-867-5309");
         pet1 = new Pet("MacGyver","Dog","Rottweiler",9);
         pet2 = new Pet("Pickles","Cat","Orange tabby",10);
     }
@@ -24,7 +24,6 @@ public class AdopterTest {
     @Test
     void testAdopterDetails() {
         assertEquals("Angie Smith", adopter.getName());
-        assertEquals("123 Main Street", adopter.getAddress());
         assertEquals("709-867-5309", adopter.getPhoneNumber());
     }
 
@@ -60,5 +59,13 @@ public class AdopterTest {
 
         assertFalse(adopter.getFosteredPets().contains(pet2));
         assertFalse(pet2.isFostered());
+    }
+
+    @Test
+    void testAdoptAlreadyAdoptedPet() {
+        pet1.setAdopted(true);
+        boolean isAdded = adopter.getAdoptedPets().add(pet1);
+
+        assertFalse(isAdded, "Pet should not be adoptable after already being adopted.");
     }
 }

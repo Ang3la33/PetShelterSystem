@@ -183,13 +183,10 @@ public class PetShelterConsoleService {
         System.out.println("Enter your name: ");
         String adoptersName = scanner.nextLine().trim().toUpperCase();
 
-        System.out.println("Enter your address: ");
-        String adoptersAddress = scanner.nextLine().trim();
-
         System.out.println("Enter your phone number: ");
         String adoptersPhoneNumber = scanner.nextLine().trim();
 
-        Adopter adopter = new Adopter(adoptersName,adoptersAddress,adoptersPhoneNumber);
+        Adopter adopter = new Adopter(adoptersName,adoptersPhoneNumber);
 
         petShelterService.adoptPet(adopter,petToAdopt);
         System.out.println("Congratulations, " + adoptersName + ", on adopting your new fur baby!");
@@ -287,13 +284,10 @@ public class PetShelterConsoleService {
         System.out.println("Enter your name: ");
         String fostersName = scanner.nextLine().trim().toUpperCase();
 
-        System.out.println("Enter your address: ");
-        String fostersAddress = scanner.nextLine().trim();
-
         System.out.println("Enter your phone number: ");
         String fostersPhoneNumber = scanner.nextLine().trim();
 
-        Adopter fosterParent = new Adopter(fostersName,fostersAddress,fostersPhoneNumber);
+        Adopter fosterParent = new Adopter(fostersName,fostersPhoneNumber);
 
         petShelterService.fosterPet(fosterParent,petToFoster);
         System.out.println(fostersName + ", you are now the proud foster parent of " + petToFoster + "!");
