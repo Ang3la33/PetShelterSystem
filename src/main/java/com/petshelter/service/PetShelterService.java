@@ -57,7 +57,7 @@ public class PetShelterService {
     public void returnFosteredPet(Adopter adopter, Pet pet) {
         if (adopter.getFosteredPets().contains(pet)) {
             adopterService.returnFosteredPet(adopter, pet);
-            pet.returnFromFoster();
+
             petShelter.addPet(pet);
             System.out.println(pet.getName() + " has been returned to " + petShelter.getName() + ".");
         } else {
