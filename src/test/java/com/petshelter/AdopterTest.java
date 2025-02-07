@@ -16,7 +16,7 @@ public class AdopterTest {
 
     @BeforeEach
     void setUp() {
-        adopter = new Adopter("Angie Smith","123 Main Street","709-867-5309");
+        adopter = new Adopter("Angie Smith","709-867-5309");
         pet1 = new Pet("MacGyver","Dog","Rottweiler",9);
         pet2 = new Pet("Pickles","Cat","Orange tabby",10);
     }
